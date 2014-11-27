@@ -45,14 +45,9 @@ public class ZoomHeaderScrollView extends ScrollView {
 
     @Override
     protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX, int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
-        boolean isCollapseAnimation = false;
+        boolean isCollapseAnimation = zoomHeaderListener.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
 
-        isCollapseAnimation = zoomHeaderListener.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent)
-                || isCollapseAnimation;
-
-        return isCollapseAnimation ? true : super.overScrollBy(deltaX, deltaY,
-                scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX,
-                maxOverScrollY, isTouchEvent);
+        return isCollapseAnimation || super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
     }
 
     @Override
