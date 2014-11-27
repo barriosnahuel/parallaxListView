@@ -14,15 +14,24 @@ import com.gnod.parallaxlistview.ui.zoomheader.ZoomHeaderGenerator;
  */
 public class ParallaxOnScrollViewActivity extends Activity {
 
-    private ZoomHeaderScrollView zoomHeaderScrollView;
+//    private ZoomHeaderScrollView customScrollView;
+
+    ZoomHeaderGenerator zoomHeaderGenerator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parallax_scroll_view);
 
-        zoomHeaderScrollView = (ZoomHeaderScrollView) findViewById(R.id.layout_scrollview);
-        zoomHeaderScrollView.setParallaxImageView((ImageView) findViewById(R.id.layout_header_image));
+        ZoomHeaderScrollView customScrollView;
+        customScrollView = (ZoomHeaderScrollView) findViewById(R.id.layout_scrollview);
+
+        zoomHeaderGenerator = new ZoomHeaderGenerator(customScrollView);
+        zoomHeaderGenerator.addImage((ImageView) findViewById(R.id.layout_header_image));
+//        zoomHeaderGenerator.addImage((ImageView) findViewById(R.id.layout_header_image));
+//        zoomHeaderGenerator.addImage((ImageView) findViewById(R.id.layout_header_image));
+
+        customScrollView.setZoomHeaderGenerator(zoomHeaderGenerator);
     }
 
     @Override
@@ -36,7 +45,7 @@ public class ParallaxOnScrollViewActivity extends Activity {
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus) {
-            zoomHeaderScrollView.setViewsBounds(ZoomHeaderGenerator.ZOOM_X2);
+            zoomHeaderGenerator.setViewsBounds(ZoomHeaderGenerator.ZOOM_X2);
         }
     }
 
