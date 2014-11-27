@@ -1,4 +1,4 @@
-package com.gnod.parallaxlistview.ui.zoomheader.listeners;
+package com.gnod.parallaxlistview.ui.zoomheader.listener;
 
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,13 +12,21 @@ import com.gnod.parallaxlistview.ui.zoomheader.animation.ResetAnimation;
  */
 public class ZoomHeaderListener implements ZoomHeaderGenerator.OnScrollChangedListener, ZoomHeaderGenerator.OnOverScrollByListener, ZoomHeaderGenerator.OnTouchEventListener {
 
+    private static final long ANIMATION_DURATION = 300;
+
     private final ImageView imageView;
     private final int paddingTop;
     private final int imageViewHeight;
-
     private int drawableMaxHeight = -1;
 
-
+    /**
+     * TODO : Add documentation!!
+     *
+     * @param imageView
+     * @param paddingTop
+     * @param imageViewHeight
+     * @param drawableMaxHeight
+     */
     public ZoomHeaderListener(ImageView imageView, int paddingTop, int imageViewHeight, int drawableMaxHeight) {
         this.imageView = imageView;
         this.paddingTop = paddingTop;
@@ -29,12 +37,10 @@ public class ZoomHeaderListener implements ZoomHeaderGenerator.OnScrollChangedLi
     public void onScrollChanged(int l, int t, int oldl, int oldt) {
 
         View firstView = (View) imageView.getParent();
-        // firstView.getTop < getPaddingTop means imageView will be covered by top padding,
-        // so we can layout it to make it shorter
+        // firstView.getTop < getPaddingTop means imageView will be covered by top padding, so we can layout it to make it shorter
         if (firstView.getTop() < paddingTop && imageView.getHeight() > imageViewHeight) {
             imageView.getLayoutParams().height = Math.max(imageView.getHeight() - (paddingTop - firstView.getTop()), imageViewHeight);
-            // to set the firstView.mTop to 0,
-            // maybe use View.setTop() is more easy, but it just support from Android 3.0 (API 11)
+            // to set the firstView.mTop to 0, maybe use View.setTop() is more easy, but it just support from Android 3.0 (API 11)
             firstView.layout(firstView.getLeft(), 0, firstView.getRight(), firstView.getHeight());
             imageView.requestLayout();
         }
@@ -45,14 +51,12 @@ public class ZoomHeaderListener implements ZoomHeaderGenerator.OnScrollChangedLi
         if (imageView.getHeight() <= drawableMaxHeight && isTouchEvent) {
             if (deltaY < 0) {
                 if (imageView.getHeight() - deltaY / 2 >= imageViewHeight) {
-                    imageView.getLayoutParams().height = imageView.getHeight() - deltaY / 2 < drawableMaxHeight ?
-                            imageView.getHeight() - deltaY / 2 : drawableMaxHeight;
+                    imageView.getLayoutParams().height = imageView.getHeight() - deltaY / 2 < drawableMaxHeight ? imageView.getHeight() - deltaY / 2 : drawableMaxHeight;
                     imageView.requestLayout();
                 }
             } else {
                 if (imageView.getHeight() > imageViewHeight) {
-                    imageView.getLayoutParams().height = imageView.getHeight() - deltaY > imageViewHeight ?
-                            imageView.getHeight() - deltaY : imageViewHeight;
+                    imageView.getLayoutParams().height = imageView.getHeight() - deltaY > imageViewHeight ? imageView.getHeight() - deltaY : imageViewHeight;
                     imageView.requestLayout();
                     return true;
                 }
@@ -61,13 +65,12 @@ public class ZoomHeaderListener implements ZoomHeaderGenerator.OnScrollChangedLi
         return false;
     }
 
-
     @Override
     public void onTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             if (imageViewHeight - 1 < imageView.getHeight()) {
                 ResetAnimation animation = new ResetAnimation(imageView, imageViewHeight);
-                animation.setDuration(300);
+                animation.setDuration(ANIMATION_DURATION);
                 imageView.startAnimation(animation);
             }
         }

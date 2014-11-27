@@ -7,6 +7,9 @@ import android.view.MotionEvent;
  */
 public class ZoomHeaderGenerator {
 
+    public final static double NO_ZOOM = 1;
+    public final static double ZOOM_X2 = 2;
+
     private OnOverScrollByListener onOverScrollByListener;
     private OnScrollChangedListener onScrollChangedListener;
     private OnTouchEventListener onTouchEventListener;

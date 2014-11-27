@@ -7,15 +7,12 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import com.gnod.parallaxlistview.R;
-import com.gnod.parallaxlistview.ui.zoomheader.listeners.ZoomHeaderListener;
+import com.gnod.parallaxlistview.ui.zoomheader.listener.ZoomHeaderListener;
 
 /**
  * Created by nbarrios on 27/11/14.
  */
 public class ZoomHeaderScrollView extends ScrollView {
-
-    public final static double NO_ZOOM = 1;
-    public final static double ZOOM_X2 = 2;
 
     private ImageView imageView;
 

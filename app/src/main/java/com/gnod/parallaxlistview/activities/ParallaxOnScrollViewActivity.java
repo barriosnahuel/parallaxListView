@@ -7,18 +7,22 @@ import android.widget.ImageView;
 
 import com.gnod.parallaxlistview.R;
 import com.gnod.parallaxlistview.ui.view.ZoomHeaderScrollView;
+import com.gnod.parallaxlistview.ui.zoomheader.ZoomHeaderGenerator;
 
+/**
+ * Created by nbarrios on 27/11/14.
+ */
 public class ParallaxOnScrollViewActivity extends Activity {
 
-    private ZoomHeaderScrollView mListView;
+    private ZoomHeaderScrollView zoomHeaderScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parallax_scroll_view);
 
-        mListView = (ZoomHeaderScrollView) findViewById(R.id.layout_scrollview);
-        mListView.setParallaxImageView((ImageView) findViewById(R.id.layout_header_image));
+        zoomHeaderScrollView = (ZoomHeaderScrollView) findViewById(R.id.layout_scrollview);
+        zoomHeaderScrollView.setParallaxImageView((ImageView) findViewById(R.id.layout_header_image));
     }
 
     @Override
@@ -32,7 +36,7 @@ public class ParallaxOnScrollViewActivity extends Activity {
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus) {
-            mListView.setViewsBounds(ZoomHeaderScrollView.ZOOM_X2);
+            zoomHeaderScrollView.setViewsBounds(ZoomHeaderGenerator.ZOOM_X2);
         }
     }
 
