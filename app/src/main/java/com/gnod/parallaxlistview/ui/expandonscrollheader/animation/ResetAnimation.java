@@ -1,4 +1,4 @@
-package com.gnod.parallaxlistview.ui.zoomheader.animation;
+package com.gnod.parallaxlistview.ui.expandonscrollheader.animation;
 
 import android.view.View;
 import android.view.animation.Animation;
