@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.gnod.parallaxlistview.R;
-import com.gnod.parallaxlistview.ui.view.CustomScrollView;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
+import com.gnod.parallaxlistview.ui.view.CustomScrollView;
 
 /**
  * Created by nbarrios on 27/11/14.
@@ -97,7 +97,12 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
                 view.setId(id.hashCode());
                 container.addView(view, 0);
 
-                expandOnScrollHandler.addImage((ImageView) findViewById(id.hashCode()));
+                expandOnScrollHandler.addImage((ImageView) view);
+
+                if (position >= 2) {
+                    // Avoid calling for first two pages because it is called in onWindowFocusChanged event/method.
+                    expandOnScrollHandler.setViewsBounds(ExpandOnScrollHandler.ZOOM_X2);
+                }
             }
             return view;
         }

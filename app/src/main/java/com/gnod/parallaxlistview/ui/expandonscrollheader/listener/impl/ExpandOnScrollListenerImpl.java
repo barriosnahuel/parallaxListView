@@ -45,11 +45,12 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
     }
 
     public void onScrollChanged(int l, int t, int oldl, int oldt) {
-
         View firstView = (View) imageView.getParent();
+
         // firstView.getTop < getPaddingTop means imageView will be covered by top padding, so we can layout it to make it shorter
         if (firstView.getTop() < paddingTop && imageView.getHeight() > imageViewHeight) {
             imageView.getLayoutParams().height = Math.max(imageView.getHeight() - (paddingTop - firstView.getTop()), imageViewHeight);
+
             // to set the firstView.mTop to 0, maybe use View.setTop() is more easy, but it just support from Android 3.0 (API 11)
             firstView.layout(firstView.getLeft(), 0, firstView.getRight(), firstView.getHeight());
             imageView.requestLayout();

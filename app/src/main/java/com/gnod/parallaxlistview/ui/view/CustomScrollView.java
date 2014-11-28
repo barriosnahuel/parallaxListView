@@ -28,7 +28,7 @@ public class CustomScrollView extends ScrollView {
 
     @Override
     protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX, int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
-        boolean isCollapseAnimation = expandOnScrollHandler.getZoomHeaderLister().overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
+        boolean isCollapseAnimation = expandOnScrollHandler.getExpandOnScrollListener().overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
 
         return isCollapseAnimation || super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
     }
@@ -36,12 +36,12 @@ public class CustomScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        expandOnScrollHandler.getZoomHeaderLister().onScrollChanged(l, t, oldl, oldt);
+        expandOnScrollHandler.getExpandOnScrollListener().onScrollChanged(l, t, oldl, oldt);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        expandOnScrollHandler.getZoomHeaderLister().onTouchEvent(ev);
+        expandOnScrollHandler.getExpandOnScrollListener().onTouchEvent(ev);
         return super.onTouchEvent(ev);
     }
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
+import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.impl.ExpandOnScrollListenerImpl;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class ExpandOnScrollHandler {
 
     private List<ImageView> images;
     private SparseIntArray imagesHeight;
-    private SparseArray<ExpandOnScrollListenerImpl> listeners;
+    private SparseArray<ExpandOnScrollListener> listeners;
 
     /**
      * TODO : Add documentation!!
@@ -64,7 +65,7 @@ public class ExpandOnScrollHandler {
         this.viewPager = viewPager;
         this.images = new ArrayList<ImageView>();
         this.imagesHeight = new SparseIntArray();
-        this.listeners = new SparseArray<ExpandOnScrollListenerImpl>();
+        this.listeners = new SparseArray<ExpandOnScrollListener>();
     }
 
     public void addImage(ImageView imageView) {
@@ -109,8 +110,20 @@ public class ExpandOnScrollHandler {
         }
     }
 
-    public ExpandOnScrollListenerImpl getZoomHeaderLister() {
-        return listeners.get(0);
+    /**
+     * Gets the listener for the current page (if we are working with a {@link
+     * android.support.v4.view.ViewPager} or the unique listener when working with a single image.
+     *
+     * @return The corresponding {@link com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener}.
+     */
+    public ExpandOnScrollListener getExpandOnScrollListener() {
+        ExpandOnScrollListener expandOnScrollListener = null;
+
+        if (viewPager != null) {
+            expandOnScrollListener = listeners.get(viewPager.getCurrentItem());
+        }
+
+        return expandOnScrollListener != null ? expandOnScrollListener : listeners.get(0);
     }
 
 }
