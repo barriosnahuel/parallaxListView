@@ -62,32 +62,32 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
             if (deltaY < 0) {
                 if (imageView.getHeight() - deltaY / 2 >= imageViewHeight) {
                     int newHeight = imageView.getHeight() - deltaY / 2 < drawableMaxHeight ? imageView.getHeight() - deltaY / 2 : drawableMaxHeight;
-
-                    imageView.getLayoutParams().height = newHeight;
-                    imageView.requestLayout();
-
-                    if (viewPager != null) {
-                        viewPager.getLayoutParams().height = newHeight;
-                        viewPager.requestLayout();
-                    }
+                    updateGUI(newHeight);
                 }
             } else {
                 if (imageView.getHeight() > imageViewHeight) {
                     int newHeight = imageView.getHeight() - deltaY > imageViewHeight ? imageView.getHeight() - deltaY : imageViewHeight;
-
-                    imageView.getLayoutParams().height = newHeight;
-                    imageView.requestLayout();
-
-                    if (viewPager != null) {
-                        viewPager.getLayoutParams().height = newHeight;
-                        viewPager.requestLayout();
-                    }
-
+                    updateGUI(newHeight);
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    /**
+     * TODO : Add documentation!!
+     *
+     * @param newHeight
+     */
+    private void updateGUI(int newHeight) {
+        imageView.getLayoutParams().height = newHeight;
+        imageView.requestLayout();
+
+        if (viewPager != null) {
+            viewPager.getLayoutParams().height = newHeight;
+            viewPager.requestLayout();
+        }
     }
 
     @Override
