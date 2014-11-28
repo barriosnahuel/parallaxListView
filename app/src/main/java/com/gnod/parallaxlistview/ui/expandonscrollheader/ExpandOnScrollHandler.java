@@ -29,6 +29,9 @@ public class ExpandOnScrollHandler {
     public final static double NO_ZOOM = 1;
     public final static double ZOOM_X2 = 2;
 
+    /**
+     * //  TODO : Use dp2px from another library to transform 160 into x PXs.
+     */
     private static final int headerDefaultHeight = 320;
     private ViewPager viewPager;
 
@@ -69,14 +72,16 @@ public class ExpandOnScrollHandler {
     }
 
     public void addImage(ImageView imageView) {
+        Log.v(TAG, "addImage...");
         if (imageView != null) {
             Log.d(TAG, "Adding image to generator...");
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             images.add(imageView);
         }
     }
 
     public void setViewsBounds(final double zoomRatio) {
+        Log.v(TAG, "setViewsBounds...");
+
         int len = images.size();
         for (int index = 0; index < len; index++) {
             final ImageView imageView = images.get(index);
@@ -115,6 +120,7 @@ public class ExpandOnScrollHandler {
      * @return The corresponding {@link com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener}.
      */
     public ExpandOnScrollListener getExpandOnScrollListener() {
+        Log.v(TAG, "getExpandOnScrollListener...");
         ExpandOnScrollListener expandOnScrollListener = null;
 
         if (viewPager != null) {
@@ -124,4 +130,7 @@ public class ExpandOnScrollHandler {
         return expandOnScrollListener != null ? expandOnScrollListener : listeners.get(0);
     }
 
+    public int getCount() {
+        return images.size();
+    }
 }
