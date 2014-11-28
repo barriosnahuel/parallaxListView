@@ -23,8 +23,7 @@ public class ResetAnimation extends Animation {
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
-        int newHeight;
-        newHeight = (int) (targetHeight - extraHeight * (1 - interpolatedTime));
+        int newHeight = (int) (targetHeight - extraHeight * (1 - interpolatedTime));
         mView.getLayoutParams().height = newHeight;
         mView.requestLayout();
     }
