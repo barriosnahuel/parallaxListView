@@ -13,11 +13,6 @@ import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScroll
  */
 public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
 
-    /**
-     * Used for log messages.
-     */
-    private static final String TAG = "ExpandOnScrollListenerImpl";
-
     private static final long ANIMATION_DURATION = 300;
 
     private final ImageView imageView;

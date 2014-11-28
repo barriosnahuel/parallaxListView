@@ -29,7 +29,7 @@ public class ExpandOnScrollHandler {
     public final static double NO_ZOOM = 1;
     public final static double ZOOM_X2 = 2;
 
-    private static final int headerDefaultHeight = 160;
+    private static final int headerDefaultHeight = 320;
     private ViewPager viewPager;
 
     private View parentView;
@@ -89,7 +89,6 @@ public class ExpandOnScrollHandler {
                 }
                 imagesHeight.put(index, imageViewHeight);
 
-
                 final int finalImageViewHeight = imageViewHeight, finalIndex = index;
                 ViewTreeObserver vto = imageView.getViewTreeObserver();
                 vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -97,7 +96,6 @@ public class ExpandOnScrollHandler {
                         imageView.getViewTreeObserver().removeOnPreDrawListener(this);
 
                         double ratio = ((double) imageView.getDrawable().getIntrinsicWidth()) / ((double) imageView.getMeasuredWidth());
-                        Log.d(TAG, "Ratio: " + ratio);
 
                         int drawableMaxHeight = (int) ((imageView.getDrawable().getIntrinsicHeight() / ratio) * (zoomRatio > 1 ? zoomRatio : 1));
 
