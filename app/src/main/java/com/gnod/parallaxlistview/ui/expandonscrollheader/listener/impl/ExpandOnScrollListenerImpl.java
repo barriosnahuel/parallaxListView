@@ -1,22 +1,30 @@
-package com.gnod.parallaxlistview.ui.zoomheader.listener;
+package com.gnod.parallaxlistview.ui.expandonscrollheader.listener.impl;
 
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.gnod.parallaxlistview.ui.zoomheader.ZoomHeaderGenerator;
-import com.gnod.parallaxlistview.ui.zoomheader.animation.ResetAnimation;
+import com.gnod.parallaxlistview.ui.expandonscrollheader.animation.ResetAnimation;
+import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener;
 
 /**
  * Created by nbarrios on 27/11/14.
  */
-public class ZoomHeaderListener implements ZoomHeaderGenerator.OnScrollChangedListener, ZoomHeaderGenerator.OnOverScrollByListener, ZoomHeaderGenerator.OnTouchEventListener {
+public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
+
+    /**
+     * Used for log messages.
+     */
+    private static final String TAG = "ExpandOnScrollListenerImpl";
 
     private static final long ANIMATION_DURATION = 300;
 
     private final ImageView imageView;
     private final int paddingTop;
     private final int imageViewHeight;
+    private final ViewPager viewPager;
     private int drawableMaxHeight = -1;
 
     /**
@@ -26,12 +34,14 @@ public class ZoomHeaderListener implements ZoomHeaderGenerator.OnScrollChangedLi
      * @param paddingTop
      * @param imageViewHeight
      * @param drawableMaxHeight
+     * @param viewPager
      */
-    public ZoomHeaderListener(ImageView imageView, int paddingTop, int imageViewHeight, int drawableMaxHeight) {
+    public ExpandOnScrollListenerImpl(ImageView imageView, int paddingTop, int imageViewHeight, int drawableMaxHeight, ViewPager viewPager) {
         this.imageView = imageView;
         this.paddingTop = paddingTop;
         this.imageViewHeight = imageViewHeight;
         this.drawableMaxHeight = drawableMaxHeight;
+        this.viewPager = viewPager;
     }
 
     public void onScrollChanged(int l, int t, int oldl, int oldt) {
@@ -51,13 +61,30 @@ public class ZoomHeaderListener implements ZoomHeaderGenerator.OnScrollChangedLi
         if (imageView.getHeight() <= drawableMaxHeight && isTouchEvent) {
             if (deltaY < 0) {
                 if (imageView.getHeight() - deltaY / 2 >= imageViewHeight) {
-                    imageView.getLayoutParams().height = imageView.getHeight() - deltaY / 2 < drawableMaxHeight ? imageView.getHeight() - deltaY / 2 : drawableMaxHeight;
+                    int newHeight = imageView.getHeight() - deltaY / 2 < drawableMaxHeight ? imageView.getHeight() - deltaY / 2 : drawableMaxHeight;
+                    Log.d(TAG, "Changing height to: " + newHeight);
+
+                    imageView.getLayoutParams().height = newHeight;
                     imageView.requestLayout();
+
+                    if (viewPager != null) {
+                        viewPager.getLayoutParams().height = newHeight;
+                        viewPager.requestLayout();
+                    }
                 }
             } else {
                 if (imageView.getHeight() > imageViewHeight) {
-                    imageView.getLayoutParams().height = imageView.getHeight() - deltaY > imageViewHeight ? imageView.getHeight() - deltaY : imageViewHeight;
+                    int newHeight = imageView.getHeight() - deltaY > imageViewHeight ? imageView.getHeight() - deltaY : imageViewHeight;
+                    Log.d(TAG, "Changing height to: " + newHeight);
+
+                    imageView.getLayoutParams().height = newHeight;
                     imageView.requestLayout();
+
+                    if (viewPager != null) {
+                        viewPager.getLayoutParams().height = newHeight;
+                        viewPager.requestLayout();
+                    }
+
                     return true;
                 }
             }
@@ -69,9 +96,11 @@ public class ZoomHeaderListener implements ZoomHeaderGenerator.OnScrollChangedLi
     public void onTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             if (imageViewHeight - 1 < imageView.getHeight()) {
-                ResetAnimation animation = new ResetAnimation(imageView, imageViewHeight);
+                final View viewToAnimate = viewPager != null ? viewPager : imageView;
+
+                ResetAnimation animation = new ResetAnimation(viewToAnimate, imageViewHeight);
                 animation.setDuration(ANIMATION_DURATION);
-                imageView.startAnimation(animation);
+                viewToAnimate.startAnimation(animation);
             }
         }
     }
