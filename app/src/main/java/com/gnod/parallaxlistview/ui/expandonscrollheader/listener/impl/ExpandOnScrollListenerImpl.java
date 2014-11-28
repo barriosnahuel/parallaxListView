@@ -1,7 +1,6 @@
 package com.gnod.parallaxlistview.ui.expandonscrollheader.listener.impl;
 
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -63,7 +62,6 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
             if (deltaY < 0) {
                 if (imageView.getHeight() - deltaY / 2 >= imageViewHeight) {
                     int newHeight = imageView.getHeight() - deltaY / 2 < drawableMaxHeight ? imageView.getHeight() - deltaY / 2 : drawableMaxHeight;
-                    Log.d(TAG, "Changing height to: " + newHeight);
 
                     imageView.getLayoutParams().height = newHeight;
                     imageView.requestLayout();
@@ -76,7 +74,6 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
             } else {
                 if (imageView.getHeight() > imageViewHeight) {
                     int newHeight = imageView.getHeight() - deltaY > imageViewHeight ? imageView.getHeight() - deltaY : imageViewHeight;
-                    Log.d(TAG, "Changing height to: " + newHeight);
 
                     imageView.getLayoutParams().height = newHeight;
                     imageView.requestLayout();
