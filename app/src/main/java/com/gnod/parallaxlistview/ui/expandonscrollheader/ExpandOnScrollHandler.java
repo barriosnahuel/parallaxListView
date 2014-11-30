@@ -59,7 +59,7 @@ public class ExpandOnScrollHandler {
      *
      * @param parentView The parent view. It will be used to get its top padding. It should your
      *                   custom {@link android.widget.ScrollView}.
-     * @param viewPager
+     * @param viewPager  The ViewPager on which we will be working on.
      */
     public ExpandOnScrollHandler(View parentView, ViewPager viewPager) {
         this.parentView = parentView;
@@ -80,8 +80,6 @@ public class ExpandOnScrollHandler {
     }
 
     public void setViewsBounds(final double zoomRatio) {
-        Log.v(TAG, "setViewsBounds...");
-
         int pagesQuantity = pages.size();
         for (int index = 0; index < pagesQuantity; index++) {
             final ExpandablePage eachPage = pages.valueAt(index);
@@ -153,7 +151,6 @@ public class ExpandOnScrollHandler {
      * @return The corresponding {@link com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener}.
      */
     public ExpandOnScrollListener getExpandOnScrollListener() {
-        Log.v(TAG, "getExpandOnScrollListener...");
         ExpandOnScrollListener expandOnScrollListener = null;
 
         if (viewPager != null) {

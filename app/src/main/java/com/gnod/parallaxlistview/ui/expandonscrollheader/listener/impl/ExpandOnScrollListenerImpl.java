@@ -40,7 +40,6 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
     public ExpandOnScrollListenerImpl(ImageView imageView, int paddingTop, int imageViewHeight, int drawableMaxHeight, ViewPager viewPager) {
         this.imageView = imageView;
         this.id = this.imageView.getId();
-        Log.d(TAG, "Created listener with id= " + this.id);
         this.paddingTop = paddingTop;
         this.imageViewHeight = imageViewHeight;
         this.drawableMaxHeight = drawableMaxHeight;
@@ -99,7 +98,6 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
      * @param newHeight
      */
     private void updateGUI(int newHeight) {
-        Log.v(TAG, "updateGUI... newHeight= " + newHeight);
         imageView.getLayoutParams().height = newHeight;
 
         if (viewPager == null) {
