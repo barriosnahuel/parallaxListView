@@ -11,9 +11,6 @@ import android.widget.ImageView;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.impl.ExpandOnScrollListenerImpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * TODO : Add documentation!!
  * <p/>
@@ -37,7 +34,7 @@ public class ExpandOnScrollHandler {
 
     private View parentView;
 
-    private List<ImageView> images;
+    private SparseArray<ImageView> images;
     private SparseIntArray imagesHeight;
     private SparseArray<ExpandOnScrollListener> listeners;
 
@@ -66,16 +63,16 @@ public class ExpandOnScrollHandler {
     public ExpandOnScrollHandler(View parentView, ViewPager viewPager) {
         this.parentView = parentView;
         this.viewPager = viewPager;
-        this.images = new ArrayList<ImageView>();
+        this.images = new SparseArray<ImageView>();
         this.imagesHeight = new SparseIntArray();
         this.listeners = new SparseArray<ExpandOnScrollListener>();
     }
 
-    public void addImage(ImageView imageView) {
-        Log.v(TAG, "addImage...");
+    public void addImage(int position, ImageView imageView) {
+        Log.v(TAG, "addImage... position= " + position);
         if (imageView != null) {
             Log.d(TAG, "Adding image to generator...");
-            images.add(imageView);
+            images.put(position, imageView);
         }
     }
 
@@ -84,28 +81,34 @@ public class ExpandOnScrollHandler {
 
         int len = images.size();
         for (int index = 0; index < len; index++) {
-            final ImageView imageView = images.get(index);
+            final int pageIndex = images.keyAt(index);
+            final ImageView imageView = images.get(pageIndex);
 
-            int imageViewHeight = imagesHeight.get(index);
-            if (imageViewHeight == 0) {
-                imageViewHeight = imageView.getHeight();
+            if (imageView != null) {
+                int imageViewHeight = imageView.getHeight();
                 if (imageViewHeight <= 0) {
                     imageViewHeight = headerDefaultHeight;
                 }
                 imagesHeight.put(index, imageViewHeight);
 
-                final int finalImageViewHeight = imageViewHeight, finalIndex = index;
+                final int finalImageViewHeight = imageViewHeight;
                 ViewTreeObserver vto = imageView.getViewTreeObserver();
                 vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                     public boolean onPreDraw() {
+                        Log.v(TAG, "onPreDraw... index= " + pageIndex);
                         imageView.getViewTreeObserver().removeOnPreDrawListener(this);
 
-                        double ratio = ((double) imageView.getDrawable().getIntrinsicWidth()) / ((double) imageView.getMeasuredWidth());
+                        if (listeners.get(pageIndex) == null) {
+                            double ratio = ((double) imageView.getDrawable().getIntrinsicWidth()) / ((double) imageView.getMeasuredWidth());
 
-                        int drawableMaxHeight = (int) ((imageView.getDrawable().getIntrinsicHeight() / ratio) * (zoomRatio > 1 ? zoomRatio : 1));
+                            int drawableMaxHeight = (int) ((imageView.getDrawable().getIntrinsicHeight() / ratio) * (zoomRatio > 1 ? zoomRatio : 1));
 
-                        Log.d(TAG, "Adding listener for page index: " + finalIndex);
-                        listeners.put(finalIndex, new ExpandOnScrollListenerImpl(imageView, parentView.getPaddingTop(), finalImageViewHeight, drawableMaxHeight, viewPager));
+                            Log.d(TAG, "Adding listener for page index: " + pageIndex);
+                            listeners.put(pageIndex, new ExpandOnScrollListenerImpl(imageView, parentView.getPaddingTop(), finalImageViewHeight, drawableMaxHeight, viewPager));
+                        } else {
+                            Log.d(TAG, "Skipping listener creation for index: " + pageIndex + ", because it already exists.");
+                        }
+
                         return true;
                     }
                 });
@@ -132,5 +135,14 @@ public class ExpandOnScrollHandler {
 
     public int getCount() {
         return images.size();
+    }
+
+    public void removeImage(ImageView imageView) {
+        Log.v(TAG, "removeImage...");
+
+        int index = images.indexOfValue(imageView);
+        images.remove(index);
+        listeners.delete(index);
+        Log.d(TAG, "Removed listener for index= " + index);
     }
 }

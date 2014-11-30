@@ -2,6 +2,7 @@ package com.gnod.parallaxlistview.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -44,7 +45,7 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
         ids.put(0, "uno");
         ids.put(1, "dos");
         ids.put(2, "tres");
-        ids.put(3, "cuatro");
+//        ids.put(3, "cuatro");
 //        ids.put(4, "cinco");
 
         viewPager.setAdapter(new CarouselPagerAdapter(ids, expandOnScrollHandler));
@@ -57,10 +58,10 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
         super.onWindowFocusChanged(hasFocus);
         Log.v(TAG, "onWindowFocusChanged...");
 
-        if (hasFocus) {
-            Log.d(TAG, "Calling setViewsBounds from onWindowFocusChanged...");
-            expandOnScrollHandler.setViewsBounds(ExpandOnScrollHandler.ZOOM_X2);
-        }
+//        if (hasFocus) {
+//            Log.d(TAG, "Calling setViewsBounds from onWindowFocusChanged...");
+//            expandOnScrollHandler.setViewsBounds(ExpandOnScrollHandler.ZOOM_X2);
+//        }
     }
 
     @Override
@@ -98,6 +99,7 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
             LayoutInflater inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             ImageView imageView = (ImageView) inflater.inflate(R.layout.carousel_item, container, false);
+            imageView.setImageDrawable(getDrawableForPageIndex(position));
 
             String id = ids.get(position);
             if (id != null) {
@@ -106,29 +108,44 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
 
                 container.addView(imageView, 0);
 
-                int addedImages = expandOnScrollHandler.getCount();
-                if (addedImages == position && addedImages < getCount()) {
-                    expandOnScrollHandler.addImage(imageView);
-
-                    if (position >= 2) {
-                        // Avoid calling for first two pages because it is called in onWindowFocusChanged event/method.
-                        expandOnScrollHandler.setViewsBounds(ExpandOnScrollHandler.ZOOM_X2);
-                    }
-                }
+                expandOnScrollHandler.addImage(position, imageView);
+                expandOnScrollHandler.setViewsBounds(ExpandOnScrollHandler.ZOOM_X2);
             }
             return imageView;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            Log.v(TAG, "destroyItem...");
+            Log.v(TAG, "destroyItem... position= " + position);
             //  TODO : Fix why the image doens't expand itself when scrolling after removing it from the container (and re instantiating it)
             container.removeView((View) object);
+            expandOnScrollHandler.removeImage((ImageView) object);
         }
 
         @Override
         public boolean isViewFromObject(View view, Object o) {
             return view == o;
+        }
+
+        private Drawable getDrawableForPageIndex(int position) {
+            int resourceId;
+            switch (position) {
+                case 0:
+                    resourceId = R.drawable.imagen;
+                    break;
+                case 1:
+                    resourceId = R.drawable.imagen2;
+                    break;
+                case 2:
+                    resourceId = R.drawable.imagen3;
+                    break;
+                case 3:
+                    resourceId = R.drawable.imagen4;
+                    break;
+                default:
+                    resourceId = R.drawable.img_header;
+            }
+            return getResources().getDrawable(resourceId);
         }
     }
 

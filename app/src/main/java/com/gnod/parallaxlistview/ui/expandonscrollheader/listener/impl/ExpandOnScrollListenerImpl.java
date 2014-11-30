@@ -101,9 +101,10 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
     private void updateGUI(int newHeight) {
         Log.v(TAG, "updateGUI... newHeight= " + newHeight);
         imageView.getLayoutParams().height = newHeight;
-        imageView.requestLayout();
 
-        if (viewPager != null) {
+        if (viewPager == null) {
+            imageView.requestLayout();
+        } else {
             viewPager.getLayoutParams().height = newHeight;
             viewPager.requestLayout();
         }
