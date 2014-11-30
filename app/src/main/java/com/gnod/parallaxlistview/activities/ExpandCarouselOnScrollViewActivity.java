@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import com.gnod.parallaxlistview.R;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
+import com.gnod.parallaxlistview.ui.expandonscrollheader.model.ExpandablePage;
 import com.gnod.parallaxlistview.ui.view.CustomScrollView;
 
 /**
@@ -28,8 +29,6 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
      */
     private static final String TAG = "ExpandCarouselOnScrollViewActivity";
 
-    private ExpandOnScrollHandler expandOnScrollHandler;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,30 +38,20 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
         CustomScrollView customScrollView = (CustomScrollView) findViewById(R.id.layout_scrollview);
         ViewPager viewPager = (ViewPager) findViewById(R.id.carousel);
 
-        expandOnScrollHandler = new ExpandOnScrollHandler(customScrollView, viewPager);
+        ExpandOnScrollHandler expandOnScrollHandler = new ExpandOnScrollHandler(customScrollView, viewPager);
 
         SparseArray<String> ids = new SparseArray<String>();
         ids.put(0, "uno");
         ids.put(1, "dos");
         ids.put(2, "tres");
-//        ids.put(3, "cuatro");
-//        ids.put(4, "cinco");
+        ids.put(3, "cuatro");
+        ids.put(4, "cinco");
 
         viewPager.setAdapter(new CarouselPagerAdapter(ids, expandOnScrollHandler));
 
         customScrollView.setExpandOnScrollHandler(expandOnScrollHandler);
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        Log.v(TAG, "onWindowFocusChanged...");
-
-//        if (hasFocus) {
-//            Log.d(TAG, "Calling setViewsBounds from onWindowFocusChanged...");
-//            expandOnScrollHandler.setViewsBounds(ExpandOnScrollHandler.ZOOM_X2);
-//        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,8 +97,7 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
 
                 container.addView(imageView, 0);
 
-                expandOnScrollHandler.addImage(position, imageView);
-                expandOnScrollHandler.setViewsBounds(ExpandOnScrollHandler.ZOOM_X2);
+                expandOnScrollHandler.addPage(new ExpandablePage(position, imageView));
             }
             return imageView;
         }
@@ -119,7 +107,7 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
             Log.v(TAG, "destroyItem... position= " + position);
             //  TODO : Fix why the image doens't expand itself when scrolling after removing it from the container (and re instantiating it)
             container.removeView((View) object);
-            expandOnScrollHandler.removeImage((ImageView) object);
+            expandOnScrollHandler.removePage((ImageView) object);
         }
 
         @Override

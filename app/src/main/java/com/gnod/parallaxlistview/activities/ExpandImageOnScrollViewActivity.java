@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.gnod.parallaxlistview.R;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
+import com.gnod.parallaxlistview.ui.expandonscrollheader.model.ExpandablePage;
 import com.gnod.parallaxlistview.ui.view.CustomScrollView;
 
 /**
@@ -31,7 +32,7 @@ public class ExpandImageOnScrollViewActivity extends Activity {
         CustomScrollView customScrollView = (CustomScrollView) findViewById(R.id.layout_scrollview);
 
         expandOnScrollHandler = new ExpandOnScrollHandler(customScrollView);
-        expandOnScrollHandler.addImage(0, (ImageView) findViewById(R.id.layout_header_image));
+        expandOnScrollHandler.addPage(new ExpandablePage(0, (ImageView) findViewById(R.id.layout_header_image)));
 
         customScrollView.setExpandOnScrollHandler(expandOnScrollHandler);
     }

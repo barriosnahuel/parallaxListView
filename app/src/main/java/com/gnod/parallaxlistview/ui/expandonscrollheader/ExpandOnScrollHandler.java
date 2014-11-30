@@ -3,13 +3,13 @@ package com.gnod.parallaxlistview.ui.expandonscrollheader;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.SparseArray;
-import android.util.SparseIntArray;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.impl.ExpandOnScrollListenerImpl;
+import com.gnod.parallaxlistview.ui.expandonscrollheader.model.ExpandablePage;
 
 /**
  * TODO : Add documentation!!
@@ -34,9 +34,10 @@ public class ExpandOnScrollHandler {
 
     private View parentView;
 
-    private SparseArray<ImageView> images;
-    private SparseIntArray imagesHeight;
-    private SparseArray<ExpandOnScrollListener> listeners;
+    /**
+     * The list of pages that this handler must handle.
+     */
+    private SparseArray<ExpandablePage> pages;
 
     /**
      * TODO : Add documentation!!
@@ -63,56 +64,85 @@ public class ExpandOnScrollHandler {
     public ExpandOnScrollHandler(View parentView, ViewPager viewPager) {
         this.parentView = parentView;
         this.viewPager = viewPager;
-        this.images = new SparseArray<ImageView>();
-        this.imagesHeight = new SparseIntArray();
-        this.listeners = new SparseArray<ExpandOnScrollListener>();
+        this.pages = new SparseArray<ExpandablePage>();
     }
 
-    public void addImage(int position, ImageView imageView) {
-        Log.v(TAG, "addImage... position= " + position);
-        if (imageView != null) {
-            Log.d(TAG, "Adding image to generator...");
-            images.put(position, imageView);
-        }
+    /**
+     * Add the specified {@code expandablePage} to this handler, and sets the associated {@link com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener} to this {@code expandablePage}.
+     *
+     * @param expandablePage The page to add.
+     */
+    public void addPage(ExpandablePage expandablePage) {
+        Log.v(TAG, "addPage... pageIndex= " + expandablePage.getIndex());
+
+        pages.put(expandablePage.getIndex(), expandablePage);
+        setViewsBounds(ZOOM_X2);
     }
 
     public void setViewsBounds(final double zoomRatio) {
         Log.v(TAG, "setViewsBounds...");
 
-        int len = images.size();
-        for (int index = 0; index < len; index++) {
-            final int pageIndex = images.keyAt(index);
-            final ImageView imageView = images.get(pageIndex);
+        int pagesQuantity = pages.size();
+        for (int index = 0; index < pagesQuantity; index++) {
+            final ExpandablePage eachPage = pages.valueAt(index);
+            final ImageView imageView = eachPage.getImageView();
 
             if (imageView != null) {
                 int imageViewHeight = imageView.getHeight();
                 if (imageViewHeight <= 0) {
                     imageViewHeight = headerDefaultHeight;
                 }
-                imagesHeight.put(index, imageViewHeight);
 
                 final int finalImageViewHeight = imageViewHeight;
                 ViewTreeObserver vto = imageView.getViewTreeObserver();
                 vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                     public boolean onPreDraw() {
-                        Log.v(TAG, "onPreDraw... index= " + pageIndex);
+                        Log.v(TAG, "onPreDraw... pageIndex= " + eachPage.getIndex());
+
                         imageView.getViewTreeObserver().removeOnPreDrawListener(this);
 
-                        if (listeners.get(pageIndex) == null) {
+                        if (eachPage.getListener() == null) {
                             double ratio = ((double) imageView.getDrawable().getIntrinsicWidth()) / ((double) imageView.getMeasuredWidth());
 
                             int drawableMaxHeight = (int) ((imageView.getDrawable().getIntrinsicHeight() / ratio) * (zoomRatio > 1 ? zoomRatio : 1));
 
-                            Log.d(TAG, "Adding listener for page index: " + pageIndex);
-                            listeners.put(pageIndex, new ExpandOnScrollListenerImpl(imageView, parentView.getPaddingTop(), finalImageViewHeight, drawableMaxHeight, viewPager));
+                            Log.d(TAG, "Adding listener for page index: " + eachPage.getIndex());
+                            eachPage.setListener(new ExpandOnScrollListenerImpl(imageView, parentView.getPaddingTop(), finalImageViewHeight, drawableMaxHeight, viewPager));
                         } else {
-                            Log.d(TAG, "Skipping listener creation for index: " + pageIndex + ", because it already exists.");
+                            Log.d(TAG, "Skipping listener creation for index: " + eachPage.getIndex() + ", because it already exists.");
                         }
 
                         return true;
                     }
                 });
             }
+        }
+    }
+
+    /**
+     * Remove the page that contains the specified {@code imageView}.
+     *
+     * @param imageView An image view that should be part of a page.
+     */
+    public void removePage(ImageView imageView) {
+        Log.v(TAG, "removePage...");
+
+        int indexInList = -1;
+        int pageIndexToRemove = -1;
+
+        int pagesQuantity = pages.size();
+        for (int index = 0; index < pagesQuantity; index++) {
+            ExpandablePage eachPage = pages.valueAt(index);
+            if (eachPage.getImageView().equals(imageView)) {
+                indexInList = index;
+                pageIndexToRemove = eachPage.getIndex();
+                break;
+            }
+        }
+
+        if (indexInList != -1) {
+            pages.removeAt(indexInList);
+            Log.d(TAG, "Removed page for index= " + pageIndexToRemove);
         }
     }
 
@@ -127,22 +157,16 @@ public class ExpandOnScrollHandler {
         ExpandOnScrollListener expandOnScrollListener = null;
 
         if (viewPager != null) {
-            expandOnScrollListener = listeners.get(viewPager.getCurrentItem());
+            int len = pages.size();
+            for (int i = 0; i < len; i++) {
+                ExpandablePage eachPage = pages.valueAt(i);
+                if (eachPage.getIndex() == viewPager.getCurrentItem()) {
+                    expandOnScrollListener = eachPage.getListener();
+                    break;
+                }
+            }
         }
 
-        return expandOnScrollListener != null ? expandOnScrollListener : listeners.get(0);
-    }
-
-    public int getCount() {
-        return images.size();
-    }
-
-    public void removeImage(ImageView imageView) {
-        Log.v(TAG, "removeImage...");
-
-        int index = images.indexOfValue(imageView);
-        images.remove(index);
-        listeners.delete(index);
-        Log.d(TAG, "Removed listener for index= " + index);
+        return expandOnScrollListener;
     }
 }
