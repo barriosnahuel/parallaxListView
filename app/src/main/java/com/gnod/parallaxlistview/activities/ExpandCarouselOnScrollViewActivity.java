@@ -33,6 +33,7 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.carousel);
 
         ExpandOnScrollHandler expandOnScrollHandler = new ExpandOnScrollHandler(customScrollView, viewPager);
+        customScrollView.setExpandOnScrollHandler(expandOnScrollHandler);
 
         SparseArray<String> ids = new SparseArray<String>();
         ids.put(0, "uno");
@@ -64,8 +65,6 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
                 return getResources().getDrawable(resourceId);
             }
         });
-
-        customScrollView.setExpandOnScrollHandler(expandOnScrollHandler);
     }
 
     @Override
