@@ -20,20 +20,17 @@ import com.gnod.parallaxlistview.ui.expandonscrollheader.model.ExpandablePage;
  * <p/>
  * Created by nbarrios on 1/12/14.
  */
-public class CarouselPagerAdapter extends PagerAdapter {
+public abstract class AbstractExpandableOnScrollPagerAdapter extends PagerAdapter {
 
     /**
      * Used for log messages.
      */
     private static final String TAG = "CarouselPagerAdapter";
 
-    private Context context;
-
-    private final ExpandOnScrollHandler expandOnScrollHandler;
     private final SparseArray<String> ids;
+    private final ExpandOnScrollHandler expandOnScrollHandler;
 
-    public CarouselPagerAdapter(Context context, SparseArray<String> ids, ExpandOnScrollHandler expandOnScrollHandler) {
-        this.context = context;
+    public AbstractExpandableOnScrollPagerAdapter(SparseArray<String> ids, ExpandOnScrollHandler expandOnScrollHandler) {
         this.ids = ids;
         this.expandOnScrollHandler = expandOnScrollHandler;
     }
@@ -66,8 +63,6 @@ public class CarouselPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        Log.v(TAG, "destroyItem... position= " + position);
-        //  TODO : Fix why the image doens't expand itself when scrolling after removing it from the container (and re instantiating it)
         container.removeView((View) object);
         expandOnScrollHandler.removePage((ImageView) object);
     }
@@ -77,24 +72,10 @@ public class CarouselPagerAdapter extends PagerAdapter {
         return view == o;
     }
 
-    private Drawable getDrawableForPageIndex(int position) {
-        int resourceId;
-        switch (position) {
-            case 0:
-                resourceId = R.drawable.imagen;
-                break;
-            case 1:
-                resourceId = R.drawable.imagen2;
-                break;
-            case 2:
-                resourceId = R.drawable.imagen3;
-                break;
-            case 3:
-                resourceId = R.drawable.imagen4;
-                break;
-            default:
-                resourceId = R.drawable.img_header;
-        }
-        return context.getResources().getDrawable(resourceId);
-    }
+    /**
+     * @param position The page index in which the {@code drawable} will be displayed.
+     *
+     * @return The {@code drawable} to display in the specified page {@code position}.
+     */
+    protected abstract Drawable getDrawableForPageIndex(int position);
 }

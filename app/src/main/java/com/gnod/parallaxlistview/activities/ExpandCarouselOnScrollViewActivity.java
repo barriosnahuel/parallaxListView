@@ -1,6 +1,7 @@
 package com.gnod.parallaxlistview.activities;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -8,7 +9,7 @@ import android.util.SparseArray;
 import android.view.Menu;
 
 import com.gnod.parallaxlistview.R;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.adapter.CarouselPagerAdapter;
+import com.gnod.parallaxlistview.ui.expandonscrollheader.adapter.AbstractExpandableOnScrollPagerAdapter;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
 import com.gnod.parallaxlistview.ui.view.CustomScrollView;
 
@@ -40,7 +41,29 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
         ids.put(3, "cuatro");
         ids.put(4, "cinco");
 
-        viewPager.setAdapter(new CarouselPagerAdapter(this, ids, expandOnScrollHandler));
+        viewPager.setAdapter(new AbstractExpandableOnScrollPagerAdapter(ids, expandOnScrollHandler) {
+            @Override
+            protected Drawable getDrawableForPageIndex(int position) {
+                int resourceId;
+                switch (position) {
+                    case 0:
+                        resourceId = R.drawable.imagen;
+                        break;
+                    case 1:
+                        resourceId = R.drawable.imagen2;
+                        break;
+                    case 2:
+                        resourceId = R.drawable.imagen3;
+                        break;
+                    case 3:
+                        resourceId = R.drawable.imagen4;
+                        break;
+                    default:
+                        resourceId = R.drawable.img_header;
+                }
+                return getResources().getDrawable(resourceId);
+            }
+        });
 
         customScrollView.setExpandOnScrollHandler(expandOnScrollHandler);
     }
