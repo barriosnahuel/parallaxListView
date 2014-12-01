@@ -30,8 +30,9 @@ public class ExpandOnScrollHandler {
      * //  TODO : Use dp2px from another library to transform 160 into x PXs.
      */
     private static final int headerDefaultHeight = 320;
-    private ViewPager viewPager;
+    private final ResetMethod resetMethod;
 
+    private ViewPager viewPager;
     private View parentView;
 
     /**
@@ -48,7 +49,7 @@ public class ExpandOnScrollHandler {
      *                   custom {@link android.widget.ScrollView}.
      */
     public ExpandOnScrollHandler(View parentView) {
-        this(parentView, null);
+        this(parentView, null, ResetMethod.RESET);
     }
 
     /**
@@ -61,10 +62,11 @@ public class ExpandOnScrollHandler {
      *                   custom {@link android.widget.ScrollView}.
      * @param viewPager  The ViewPager on which we will be working on.
      */
-    public ExpandOnScrollHandler(View parentView, ViewPager viewPager) {
+    public ExpandOnScrollHandler(View parentView, ViewPager viewPager, ResetMethod resetMethod) {
         this.parentView = parentView;
         this.viewPager = viewPager;
         this.pages = new SparseArray<ExpandablePage>();
+        this.resetMethod = resetMethod;
     }
 
     /**
@@ -105,7 +107,7 @@ public class ExpandOnScrollHandler {
                             int drawableMaxHeight = (int) ((imageView.getDrawable().getIntrinsicHeight() / ratio) * (zoomRatio > 1 ? zoomRatio : 1));
 
                             Log.d(TAG, "Adding listener for page index: " + eachPage.getIndex());
-                            eachPage.setListener(new ExpandOnScrollListenerImpl(imageView, parentView.getPaddingTop(), finalImageViewHeight, drawableMaxHeight, viewPager));
+                            eachPage.setListener(new ExpandOnScrollListenerImpl(imageView, parentView.getPaddingTop(), finalImageViewHeight, drawableMaxHeight, viewPager, resetMethod));
                         } else {
                             Log.d(TAG, "Skipping listener creation for index: " + eachPage.getIndex() + ", because it already exists.");
                         }
@@ -166,4 +168,21 @@ public class ExpandOnScrollHandler {
 
         return expandOnScrollListener;
     }
+
+    /**
+     * TODO : Add documentation!!
+     */
+    public enum ResetMethod {
+        /**
+         * After scrolling the image's height will be restored to its initial size.
+         */
+        RESET,
+
+        /**
+         * After scrolling nothing happens. The images of all carousel will have the new height till
+         * the user scrolls down.
+         */
+        NO_RESET
+    }
+
 }

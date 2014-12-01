@@ -9,8 +9,8 @@ import android.util.SparseArray;
 import android.view.Menu;
 
 import com.gnod.parallaxlistview.R;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.adapter.AbstractExpandableOnScrollPagerAdapter;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
+import com.gnod.parallaxlistview.ui.expandonscrollheader.adapter.AbstractExpandableOnScrollPagerAdapter;
 import com.gnod.parallaxlistview.ui.view.CustomScrollView;
 
 /**
@@ -32,7 +32,7 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
         CustomScrollView customScrollView = (CustomScrollView) findViewById(R.id.layout_scrollview);
         ViewPager viewPager = (ViewPager) findViewById(R.id.carousel);
 
-        ExpandOnScrollHandler expandOnScrollHandler = new ExpandOnScrollHandler(customScrollView, viewPager);
+        ExpandOnScrollHandler expandOnScrollHandler = new ExpandOnScrollHandler(customScrollView, viewPager, ExpandOnScrollHandler.ResetMethod.RESET);
         customScrollView.setExpandOnScrollHandler(expandOnScrollHandler);
 
         SparseArray<String> ids = new SparseArray<String>();

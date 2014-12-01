@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.animation.ResetAnimation;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener;
 
@@ -26,6 +27,7 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
     private final int imageViewHeight;
     private final ViewPager viewPager;
     private final int id;
+    private final ExpandOnScrollHandler.ResetMethod resetMethod;
     private int drawableMaxHeight = -1;
 
     /**
@@ -36,14 +38,16 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
      * @param imageViewHeight
      * @param drawableMaxHeight
      * @param viewPager
+     * @param resetMethod
      */
-    public ExpandOnScrollListenerImpl(ImageView imageView, int paddingTop, int imageViewHeight, int drawableMaxHeight, ViewPager viewPager) {
+    public ExpandOnScrollListenerImpl(ImageView imageView, int paddingTop, int imageViewHeight, int drawableMaxHeight, ViewPager viewPager, ExpandOnScrollHandler.ResetMethod resetMethod) {
         this.imageView = imageView;
         this.id = this.imageView.getId();
         this.paddingTop = paddingTop;
         this.imageViewHeight = imageViewHeight;
         this.drawableMaxHeight = drawableMaxHeight;
         this.viewPager = viewPager;
+        this.resetMethod = resetMethod;
     }
 
     public void onScrollChanged(int l, int t, int oldl, int oldt) {
@@ -110,16 +114,28 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
 
     @Override
     public void onTouchEvent(MotionEvent ev) {
-        Log.v(TAG, "onTouchEvent...");
-
         if (ev.getAction() == MotionEvent.ACTION_UP) {
-            if (imageViewHeight - 1 < imageView.getHeight()) {
-                final View viewToAnimate = viewPager != null ? viewPager : imageView;
-
-                ResetAnimation animation = new ResetAnimation(viewToAnimate, imageViewHeight);
-                animation.setDuration(ANIMATION_DURATION);
-                viewToAnimate.startAnimation(animation);
+            switch (resetMethod) {
+                case RESET:
+                    resetImageToInitialHeight();
+                    break;
+                case NO_RESET:
+                    break;
+                default:
+                    resetImageToInitialHeight();
             }
+        }
+    }
+
+    private void resetImageToInitialHeight() {
+        Log.v(TAG, "resetImageToInitialHeight...");
+
+        if (imageViewHeight - 1 < imageView.getHeight()) {
+            final View viewToAnimate = viewPager != null ? viewPager : imageView;
+
+            ResetAnimation animation = new ResetAnimation(viewToAnimate, imageViewHeight);
+            animation.setDuration(ANIMATION_DURATION);
+            viewToAnimate.startAnimation(animation);
         }
     }
 }
