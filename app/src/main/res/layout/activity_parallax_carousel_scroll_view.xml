@@ -23,7 +23,7 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/carousel"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"/>
+                android:layout_height="@dimen/expandable_initial_height"/>
 
             <TextView
                 android:layout_width="wrap_content"

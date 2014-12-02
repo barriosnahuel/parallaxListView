@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
+import com.gnod.parallaxlistview.R;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.impl.ExpandOnScrollListenerImpl;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.model.ExpandablePage;
@@ -26,10 +27,7 @@ public class ExpandOnScrollHandler {
     public final static double NO_ZOOM = 1;
     public final static double ZOOM_X2 = 2;
 
-    /**
-     * //  TODO : Use dp2px from another library to transform 160 into x PXs.
-     */
-    private static final int headerDefaultHeight = 320;
+    private static int headerDefaultHeight;
     private final ResetMethod resetMethod;
 
     private ViewPager viewPager;
@@ -64,13 +62,16 @@ public class ExpandOnScrollHandler {
      */
     public ExpandOnScrollHandler(View parentView, ViewPager viewPager, ResetMethod resetMethod) {
         this.parentView = parentView;
+        headerDefaultHeight = (int) parentView.getResources().getDimension(R.dimen.expandable_initial_height);
         this.viewPager = viewPager;
         this.pages = new SparseArray<ExpandablePage>();
         this.resetMethod = resetMethod;
     }
 
     /**
-     * Add the specified {@code expandablePage} to this handler, and sets the associated {@link com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener} to this {@code expandablePage}.
+     * Add the specified {@code expandablePage} to this handler, and sets the associated {@link
+     * com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener} to this
+     * {@code expandablePage}.
      *
      * @param expandablePage The page to add.
      */

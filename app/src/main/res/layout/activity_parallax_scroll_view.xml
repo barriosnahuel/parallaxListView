@@ -23,7 +23,7 @@
             <ImageView
                 android:id="@+id/layout_header_image"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_default_height"
+                android:layout_height="@dimen/expandable_initial_height"
                 android:scaleType="centerCrop"
                 android:src="@drawable/imagen"
                 />
