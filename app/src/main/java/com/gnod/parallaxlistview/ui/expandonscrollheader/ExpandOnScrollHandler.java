@@ -102,7 +102,7 @@ public class ExpandOnScrollHandler {
 
                         imageView.getViewTreeObserver().removeOnPreDrawListener(this);
 
-                        if (eachPage.getListener() == null) {
+                        if (eachPage.getListener() == null && imageView.getDrawable() != null) {
                             double ratio = ((double) imageView.getDrawable().getIntrinsicWidth()) / ((double) imageView.getMeasuredWidth());
 
                             int drawableMaxHeight = (int) ((imageView.getDrawable().getIntrinsicHeight() / ratio) * (zoomRatio > 1 ? zoomRatio : 1));

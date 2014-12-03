@@ -1,7 +1,6 @@
 package com.gnod.parallaxlistview.activities;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -44,25 +43,26 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
 
         viewPager.setAdapter(new AbstractExpandableOnScrollPagerAdapter(ids, expandOnScrollHandler) {
             @Override
-            protected Drawable getDrawableForPageIndex(int position) {
-                int resourceId;
+            protected String getDrawableUrlForPageIndex(int position) {
+                String resourceUrl;
                 switch (position) {
                     case 0:
-                        resourceId = R.drawable.imagen;
+                        resourceUrl = "http://mla-s1-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20262-MLA7252806894_102014-O.jpg";
                         break;
                     case 1:
-                        resourceId = R.drawable.imagen2;
+                        resourceUrl = "http://mla-s2-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20214-MLA7252806898_102014-O.jpg";
                         break;
                     case 2:
-                        resourceId = R.drawable.imagen3;
+                        resourceUrl = "http://mla-s2-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20212-MLA7252806896_102014-O.jpg";
                         break;
                     case 3:
-                        resourceId = R.drawable.imagen4;
+                        resourceUrl = "http://mla-s2-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20237-MLA7252806895_102014-O.jpg";
                         break;
                     default:
-                        resourceId = R.drawable.img_header;
+                        resourceUrl = "http://mla-s2-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20266-MLA7252806932_102014-O.jpg";
                 }
-                return getResources().getDrawable(resourceId);
+
+                return resourceUrl;
             }
         });
     }

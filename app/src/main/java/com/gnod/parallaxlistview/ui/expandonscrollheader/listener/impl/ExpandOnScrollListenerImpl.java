@@ -47,8 +47,6 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
 
     @Override
     public boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX, int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
-        Log.v(TAG, "overScrollBy...");
-
         if (viewToExpand.getHeight() <= maxHeight && isTouchEvent) {
             if (deltaY < 0) {
                 if (viewToExpand.getHeight() - deltaY / 2 >= initialHeight) {
@@ -64,6 +62,7 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
                 }
             }
         }
+
         return false;
     }
 
