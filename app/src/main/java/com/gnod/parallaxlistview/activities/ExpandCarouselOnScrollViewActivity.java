@@ -27,12 +27,12 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v(TAG, "onCreate...");
-        setContentView(R.layout.activity_parallax_carousel_scroll_view);
+        setContentView(R.layout.activity_expand_carousel_scroll_view);
 
         CustomScrollView customScrollView = (CustomScrollView) findViewById(R.id.layout_scrollview);
         ViewPager viewPager = (ViewPager) findViewById(R.id.carousel);
 
-        ExpandOnScrollHandler expandOnScrollHandler = new ExpandOnScrollHandler(customScrollView, viewPager, ExpandOnScrollHandler.ResetMethod.RESET);
+        ExpandOnScrollHandler expandOnScrollHandler = new ExpandOnScrollHandler(customScrollView.getPaddingTop(), viewPager, viewPager, ExpandOnScrollHandler.ResetMethod.NO_RESET);
         customScrollView.setExpandOnScrollHandler(expandOnScrollHandler);
 
         SparseArray<String> ids = new SparseArray<String>();

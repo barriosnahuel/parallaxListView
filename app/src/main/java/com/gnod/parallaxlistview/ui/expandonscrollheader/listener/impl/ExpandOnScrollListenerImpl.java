@@ -1,10 +1,8 @@
 package com.gnod.parallaxlistview.ui.expandonscrollheader.listener.impl;
 
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
 import com.gnod.parallaxlistview.ui.expandonscrollheader.animation.ResetAnimation;
@@ -22,31 +20,28 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
 
     private static final long ANIMATION_DURATION = 300;
 
-    private final ImageView imageView;
     private final int paddingTop;
-    private final int imageViewHeight;
-    private final ViewPager viewPager;
+    private final int initialHeight;
+    private final View viewToExpand;
     private final int id;
     private final ExpandOnScrollHandler.ResetMethod resetMethod;
-    private int drawableMaxHeight = -1;
+    private int maxHeight = -1;
 
     /**
      * TODO : Add documentation!!
      *
-     * @param imageView
      * @param paddingTop
-     * @param imageViewHeight
-     * @param drawableMaxHeight
-     * @param viewPager
+     * @param initialHeight
+     * @param maxHeight
+     * @param viewToExpand
      * @param resetMethod
      */
-    public ExpandOnScrollListenerImpl(ImageView imageView, int paddingTop, int imageViewHeight, int drawableMaxHeight, ViewPager viewPager, ExpandOnScrollHandler.ResetMethod resetMethod) {
-        this.imageView = imageView;
-        this.id = this.imageView.getId();
+    public ExpandOnScrollListenerImpl(int id, int paddingTop, int initialHeight, int maxHeight, View viewToExpand, ExpandOnScrollHandler.ResetMethod resetMethod) {
+        this.id = id;
         this.paddingTop = paddingTop;
-        this.imageViewHeight = imageViewHeight;
-        this.drawableMaxHeight = drawableMaxHeight;
-        this.viewPager = viewPager;
+        this.initialHeight = initialHeight;
+        this.maxHeight = maxHeight;
+        this.viewToExpand = viewToExpand;
         this.resetMethod = resetMethod;
     }
 
@@ -54,16 +49,16 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
     public boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX, int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
         Log.v(TAG, "overScrollBy...");
 
-        if (imageView.getHeight() <= drawableMaxHeight && isTouchEvent) {
+        if (viewToExpand.getHeight() <= maxHeight && isTouchEvent) {
             if (deltaY < 0) {
-                if (imageView.getHeight() - deltaY / 2 >= imageViewHeight) {
-                    int newHeight = imageView.getHeight() - deltaY / 2 < drawableMaxHeight ? imageView.getHeight() - deltaY / 2 : drawableMaxHeight;
-                    Log.d(TAG, "Updating height from " + imageView.getHeight() + ", to " + newHeight + ". deltaY= " + deltaY + "; Listener: " + id);
+                if (viewToExpand.getHeight() - deltaY / 2 >= initialHeight) {
+                    int newHeight = viewToExpand.getHeight() - deltaY / 2 < maxHeight ? viewToExpand.getHeight() - deltaY / 2 : maxHeight;
+                    Log.d(TAG, "Updating height from " + viewToExpand.getHeight() + ", to " + newHeight + ". deltaY= " + deltaY + "; Listener: " + id);
                     updateGUI(newHeight);
                 }
             } else {
-                if (imageView.getHeight() > imageViewHeight) {
-                    int newHeight = imageView.getHeight() - deltaY > imageViewHeight ? imageView.getHeight() - deltaY : imageViewHeight;
+                if (viewToExpand.getHeight() > initialHeight) {
+                    int newHeight = viewToExpand.getHeight() - deltaY > initialHeight ? viewToExpand.getHeight() - deltaY : initialHeight;
                     updateGUI(newHeight);
                     return true;
                 }
@@ -78,14 +73,8 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
      * @param newHeight
      */
     private void updateGUI(int newHeight) {
-        imageView.getLayoutParams().height = newHeight;
-
-        if (viewPager == null) {
-            imageView.requestLayout();
-        } else {
-            viewPager.getLayoutParams().height = newHeight;
-            viewPager.requestLayout();
-        }
+        viewToExpand.getLayoutParams().height = newHeight;
+        viewToExpand.requestLayout();
     }
 
     @Override
@@ -106,10 +95,10 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
     private void resetImageToInitialHeight() {
         Log.v(TAG, "resetImageToInitialHeight...");
 
-        if (imageViewHeight - 1 < imageView.getHeight()) {
-            final View viewToAnimate = viewPager != null ? viewPager : imageView;
+        if (initialHeight - 1 < viewToExpand.getHeight()) {
+            final View viewToAnimate = viewToExpand;
 
-            ResetAnimation animation = new ResetAnimation(viewToAnimate, imageViewHeight);
+            ResetAnimation animation = new ResetAnimation(viewToAnimate, initialHeight);
             animation.setDuration(ANIMATION_DURATION);
             viewToAnimate.startAnimation(animation);
         }
@@ -121,17 +110,17 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
 //
 //        if (firstView == null) {
 //            Log.d(TAG, "Error!");
-//            firstView = viewPager;
+//            firstView = viewToExpand;
 //        } else {
 ////            Log.d(TAG, "imageViewParent id: " + firstView.getId());
 ////            Log.d(TAG, "imageView id: " + imageView.getId());
 //        }
 //
 //        // firstView.getTop < getPaddingTop means imageView will be covered by top padding, so we can layout it to make it shorter
-//        if (firstView != null && firstView.getTop() < paddingTop && imageView.getHeight() > imageViewHeight) {
+//        if (firstView != null && firstView.getTop() < paddingTop && imageView.getHeight() > initialHeight) {
 //            Log.d(TAG, "This log message never appears... should I delete this method (entirely!)");//  TODO : Delete this method
 //
-//            imageView.getLayoutParams().height = Math.max(imageView.getHeight() - (paddingTop - firstView.getTop()), imageViewHeight);
+//            imageView.getLayoutParams().height = Math.max(imageView.getHeight() - (paddingTop - firstView.getTop()), initialHeight);
 //
 //            // to set the firstView.mTop to 0, maybe use View.setTop() is more easy, but it just support from Android 3.0 (API 11)
 //            firstView.layout(firstView.getLeft(), 0, firstView.getRight(), firstView.getHeight());

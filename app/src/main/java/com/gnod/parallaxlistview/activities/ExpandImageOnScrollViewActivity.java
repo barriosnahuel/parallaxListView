@@ -27,12 +27,13 @@ public class ExpandImageOnScrollViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v(TAG, "onCreate...");
-        setContentView(R.layout.activity_parallax_scroll_view);
+        setContentView(R.layout.activity_expand_image_scroll_view);
 
         CustomScrollView customScrollView = (CustomScrollView) findViewById(R.id.layout_scrollview);
 
-        expandOnScrollHandler = new ExpandOnScrollHandler(customScrollView);
-        expandOnScrollHandler.addPage(new ExpandablePage(0, (ImageView) findViewById(R.id.layout_header_image)));
+        ImageView imageView = (ImageView) findViewById(R.id.layout_header_image);
+        expandOnScrollHandler = new ExpandOnScrollHandler(customScrollView.getPaddingTop(), imageView, ExpandOnScrollHandler.ResetMethod.NO_RESET);
+        expandOnScrollHandler.addPage(new ExpandablePage(0, imageView));
 
         customScrollView.setExpandOnScrollHandler(expandOnScrollHandler);
     }

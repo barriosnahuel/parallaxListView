@@ -30,8 +30,9 @@ public class ExpandOnScrollHandler {
     private static int headerDefaultHeight;
     private final ResetMethod resetMethod;
 
+    private int paddingTop;
+    private View viewToExpand;
     private ViewPager viewPager;
-    private View parentView;
 
     /**
      * The list of pages that this handler must handle.
@@ -39,30 +40,29 @@ public class ExpandOnScrollHandler {
     private SparseArray<ExpandablePage> pages;
 
     /**
-     * TODO : Add documentation!!
-     * <p/>
-     * Creates a Zoom generator for a single {@link android.widget.ImageView}.
-     *
-     * @param parentView The parent view. It will be used to get its top padding. It should your
-     *                   custom {@link android.widget.ScrollView}.
+     * Same as {@link #ExpandOnScrollHandler(int, android.view.View, android.support.v4.view.ViewPager,
+     * com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler.ResetMethod)} but
+     * without using a {@link android.support.v4.view.ViewPager}. You will expand a simple view like
+     * an {@link android.widget.ImageView}.
      */
-    public ExpandOnScrollHandler(View parentView) {
-        this(parentView, null, ResetMethod.RESET);
+    public ExpandOnScrollHandler(int paddingTop, View viewToExpand, ResetMethod resetMethod) {
+        this(paddingTop, viewToExpand, null, resetMethod);
     }
 
     /**
-     * TODO : Add documentation!!
-     * <p/>
      * Creates a Zoom generator for a specific {@link android.support.v4.view.ViewPager}. A carousel
      * of images.
      *
-     * @param parentView The parent view. It will be used to get its top padding. It should your
-     *                   custom {@link android.widget.ScrollView}.
-     * @param viewPager  The ViewPager on which we will be working on.
+     * @param paddingTop   The top padding of the parent view. It should your custom {@link
+     *                     android.widget.ScrollView}.
+     * @param viewToExpand The ViewPager on which we will be working on.
+     * @param viewPager    The {@link android.support.v4.view.ViewPager} that we will be expanding.
+     * @param resetMethod  The reset method to use after scrolling up.
      */
-    public ExpandOnScrollHandler(View parentView, ViewPager viewPager, ResetMethod resetMethod) {
-        this.parentView = parentView;
-        headerDefaultHeight = (int) parentView.getResources().getDimension(R.dimen.expandable_initial_height);
+    public ExpandOnScrollHandler(int paddingTop, View viewToExpand, ViewPager viewPager, ResetMethod resetMethod) {
+        this.paddingTop = paddingTop;
+        headerDefaultHeight = (int) viewToExpand.getResources().getDimension(R.dimen.expandable_initial_height);
+        this.viewToExpand = viewToExpand;
         this.viewPager = viewPager;
         this.pages = new SparseArray<ExpandablePage>();
         this.resetMethod = resetMethod;
@@ -108,7 +108,7 @@ public class ExpandOnScrollHandler {
                             int drawableMaxHeight = (int) ((imageView.getDrawable().getIntrinsicHeight() / ratio) * (zoomRatio > 1 ? zoomRatio : 1));
 
                             Log.d(TAG, "Adding listener for page index: " + eachPage.getIndex());
-                            eachPage.setListener(new ExpandOnScrollListenerImpl(imageView, parentView.getPaddingTop(), finalImageViewHeight, drawableMaxHeight, viewPager, resetMethod));
+                            eachPage.setListener(new ExpandOnScrollListenerImpl(imageView.getId(), paddingTop, finalImageViewHeight, drawableMaxHeight, viewToExpand, resetMethod));
                         } else {
                             Log.d(TAG, "Skipping listener creation for index: " + eachPage.getIndex() + ", because it already exists.");
                         }
@@ -156,7 +156,9 @@ public class ExpandOnScrollHandler {
     public ExpandOnScrollListener getExpandOnScrollListener() {
         ExpandOnScrollListener expandOnScrollListener = null;
 
-        if (viewPager != null) {
+        if (viewPager == null) {
+            expandOnScrollListener = pages.valueAt(0).getListener();
+        } else {
             int len = pages.size();
             for (int i = 0; i < len; i++) {
                 ExpandablePage eachPage = pages.valueAt(i);
