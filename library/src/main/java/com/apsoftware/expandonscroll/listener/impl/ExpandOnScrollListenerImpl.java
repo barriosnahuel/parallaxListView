@@ -1,12 +1,12 @@
-package com.gnod.parallaxlistview.ui.expandonscrollheader.listener.impl;
+package com.apsoftware.expandonscroll.listener.impl;
 
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.animation.ResetAnimation;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener;
+import com.apsoftware.expandonscroll.ExpandOnScrollHandler;
+import com.apsoftware.expandonscroll.animation.ResetAnimation;
+import com.apsoftware.expandonscroll.listener.ExpandOnScrollListener;
 
 /**
  * Created by nbarrios on 27/11/14.

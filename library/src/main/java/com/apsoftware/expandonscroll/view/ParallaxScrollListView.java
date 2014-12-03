@@ -1,4 +1,4 @@
-package com.gnod.parallaxlistview.ui.view;
+package com.apsoftware.expandonscroll.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -11,9 +11,9 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.gnod.parallaxlistview.R;
+import com.apsoftware.expandonscroll.R;
 
-public class ParallaxScollListView extends ListView implements OnScrollListener {
+public class ParallaxScrollListView extends ListView implements OnScrollListener {
 
     public final static double NO_ZOOM = 1;
     public final static double ZOOM_X2 = 2;
@@ -33,18 +33,18 @@ public class ParallaxScollListView extends ListView implements OnScrollListener 
         public void onTouchEvent(MotionEvent ev);
     }
 
-    public ParallaxScollListView(Context context, AttributeSet attrs,
-                                 int defStyle) {
+    public ParallaxScrollListView(Context context, AttributeSet attrs,
+                                  int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
 
-    public ParallaxScollListView(Context context, AttributeSet attrs) {
+    public ParallaxScrollListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public ParallaxScollListView(Context context) {
+    public ParallaxScrollListView(Context context) {
         super(context);
         init(context);
     }

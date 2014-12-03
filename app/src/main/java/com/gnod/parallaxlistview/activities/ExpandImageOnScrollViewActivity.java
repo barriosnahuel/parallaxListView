@@ -6,10 +6,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageView;
 
+import com.apsoftware.expandonscroll.ExpandOnScrollHandler;
+import com.apsoftware.expandonscroll.model.ExpandablePage;
+import com.apsoftware.expandonscroll.view.CustomScrollView;
 import com.gnod.parallaxlistview.R;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.model.ExpandablePage;
-import com.gnod.parallaxlistview.ui.view.CustomScrollView;
 
 /**
  * Created by nbarrios on 27/11/14.

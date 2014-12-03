@@ -1,11 +1,12 @@
-package com.gnod.parallaxlistview.ui.view;
+package com.apsoftware.expandonscroll.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
-import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
+import com.apsoftware.expandonscroll.ExpandOnScrollHandler;
+
 
 /**
  * Created by nbarrios on 27/11/14.

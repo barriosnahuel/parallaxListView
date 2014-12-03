@@ -1,9 +1,9 @@
-package com.gnod.parallaxlistview.ui.expandonscrollheader.model;
+package com.apsoftware.expandonscroll.model;
 
 import android.widget.ImageView;
 
-import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.impl.ExpandOnScrollListenerImpl;
+import com.apsoftware.expandonscroll.listener.ExpandOnScrollListener;
+import com.apsoftware.expandonscroll.listener.impl.ExpandOnScrollListenerImpl;
 
 /**
  * Created by nbarrios on 30/11/14.

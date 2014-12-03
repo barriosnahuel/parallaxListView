@@ -1,4 +1,4 @@
-package com.gnod.parallaxlistview.ui.expandonscrollheader.animation;
+package com.apsoftware.expandonscroll.animation;
 
 import android.view.View;
 import android.view.animation.Animation;

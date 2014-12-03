@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import com.gnod.parallaxlistview.ui.view.ParallaxScollListView;
+import com.apsoftware.expandonscroll.view.ParallaxScrollListView;
 import com.gnod.parallaxlistview.R;
 
 public class ParallaxOnListViewActivity extends Activity {
 
-    private ParallaxScollListView mListView;
+    private ParallaxScrollListView mListView;
     private ImageView mImageView;
 
     @Override
@@ -21,7 +21,7 @@ public class ParallaxOnListViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parallax);
 
-        mListView = (ParallaxScollListView) findViewById(R.id.layout_listview);
+        mListView = (ParallaxScrollListView) findViewById(R.id.layout_listview);
         View header = LayoutInflater.from(this).inflate(R.layout.listview_header, null);
         mImageView = (ImageView) header.findViewById(R.id.layout_header_image);
 
@@ -57,7 +57,7 @@ public class ParallaxOnListViewActivity extends Activity {
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus) {
-            mListView.setViewsBounds(ParallaxScollListView.ZOOM_X2);
+            mListView.setViewsBounds(ParallaxScrollListView.ZOOM_X2);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.gnod.parallaxlistview.ui.expandonscrollheader.listener;
+package com.apsoftware.expandonscroll.listener;
 
 import android.view.MotionEvent;
 

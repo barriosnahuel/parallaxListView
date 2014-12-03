@@ -1,4 +1,4 @@
-package com.gnod.parallaxlistview.ui.expandonscrollheader;
+package com.apsoftware.expandonscroll;
 
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -7,10 +7,9 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
-import com.gnod.parallaxlistview.R;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.listener.impl.ExpandOnScrollListenerImpl;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.model.ExpandablePage;
+import com.apsoftware.expandonscroll.listener.ExpandOnScrollListener;
+import com.apsoftware.expandonscroll.listener.impl.ExpandOnScrollListenerImpl;
+import com.apsoftware.expandonscroll.model.ExpandablePage;
 
 /**
  * TODO : Add documentation!!
@@ -41,7 +40,7 @@ public class ExpandOnScrollHandler {
 
     /**
      * Same as {@link #ExpandOnScrollHandler(int, android.view.View, android.support.v4.view.ViewPager,
-     * com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler.ResetMethod)} but
+     * ExpandOnScrollHandler.ResetMethod)} but
      * without using a {@link android.support.v4.view.ViewPager}. You will expand a simple view like
      * an {@link android.widget.ImageView}.
      */
@@ -70,7 +69,7 @@ public class ExpandOnScrollHandler {
 
     /**
      * Add the specified {@code expandablePage} to this handler, and sets the associated {@link
-     * com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener} to this
+     * com.apsoftware.expandonscroll.listener.ExpandOnScrollListener} to this
      * {@code expandablePage}.
      *
      * @param expandablePage The page to add.
@@ -151,7 +150,7 @@ public class ExpandOnScrollHandler {
      * Gets the listener for the current page (if we are working with a {@link
      * android.support.v4.view.ViewPager} or the unique listener when working with a single image.
      *
-     * @return The corresponding {@link com.gnod.parallaxlistview.ui.expandonscrollheader.listener.ExpandOnScrollListener}.
+     * @return The corresponding {@link com.apsoftware.expandonscroll.listener.ExpandOnScrollListener}.
      */
     public ExpandOnScrollListener getExpandOnScrollListener() {
         ExpandOnScrollListener expandOnScrollListener = null;

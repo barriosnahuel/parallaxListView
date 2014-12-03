@@ -1,4 +1,4 @@
-package com.gnod.parallaxlistview.ui.expandonscrollheader.adapter;
+package com.apsoftware.expandonscroll.adapter;
 
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.apsoftware.expandonscroll.ExpandOnScrollHandler;
+import com.apsoftware.expandonscroll.model.ExpandablePage;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.ImageViewTarget;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.ExpandOnScrollHandler;
-import com.gnod.parallaxlistview.ui.expandonscrollheader.model.ExpandablePage;
 
 /**
  * PagerAdapter always has 3 pages in stack unless the user is in the first/last page (in that case
