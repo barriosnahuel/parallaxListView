@@ -19,24 +19,24 @@ import com.bumptech.glide.request.target.ImageViewTarget;
  * <p/>
  * Created by nbarrios on 1/12/14.
  */
-public abstract class AbstractExpandableOnScrollPagerAdapter extends PagerAdapter {
+public class SimpleExpandableOnScrollPagerAdapter extends PagerAdapter {
 
     /**
      * Used for log messages.
      */
     private static final String TAG = "CarouselPagerAdapter";
 
-    private final SparseArray<String> ids;
+    private final SparseArray<String> resourcesByPageIndex;
     private final ExpandOnScrollHandler expandOnScrollHandler;
 
-    public AbstractExpandableOnScrollPagerAdapter(SparseArray<String> ids, ExpandOnScrollHandler expandOnScrollHandler) {
-        this.ids = ids;
+    public SimpleExpandableOnScrollPagerAdapter(SparseArray<String> resourcesByPageIndex, ExpandOnScrollHandler expandOnScrollHandler) {
+        this.resourcesByPageIndex = resourcesByPageIndex;
         this.expandOnScrollHandler = expandOnScrollHandler;
     }
 
     @Override
     public int getCount() {
-        return ids.size();
+        return resourcesByPageIndex.size();
     }
 
     @Override
@@ -46,13 +46,13 @@ public abstract class AbstractExpandableOnScrollPagerAdapter extends PagerAdapte
         final ImageView imageView = new ImageView(container.getContext());
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        String id = ids.get(position);
-        if (id != null) {
-            imageView.setId(id.hashCode());
+        final String resourceUrl = resourcesByPageIndex.get(position);
+        if (resourceUrl != null) {
+            imageView.setId(String.valueOf(position).hashCode());
             container.addView(imageView, 0);
 
             Glide.with(container.getContext())
-                    .load(getDrawableUrlForPageIndex(position))
+                    .load(resourceUrl)
                     .asBitmap()
                     .into(new ImageViewTarget<Bitmap>(imageView) {
                         @Override
@@ -79,8 +79,12 @@ public abstract class AbstractExpandableOnScrollPagerAdapter extends PagerAdapte
     }
 
     /**
-     * @param position position The page index in which the {@code drawable} will be displayed.
-     * @return The url of the image to load in the specified page {@code position}.
+     * @param pageIndex   The page index in which to load the given {@code resource}.
+     * @param resourceUrl The URL of the resource to fetch from the network.
      */
-    protected abstract String getDrawableUrlForPageIndex(int position);
+    public void add(int pageIndex, String resourceUrl) {
+        resourcesByPageIndex.append(pageIndex, resourceUrl);
+        notifyDataSetChanged();
+        Log.d(TAG, "Called: notifyDataSetChanged(). Added pageIndex= " + pageIndex);
+    }
 }
