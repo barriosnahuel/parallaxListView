@@ -1,4 +1,4 @@
-package com.apsoftware.expandonscroll.view;
+package com.barriosnahuel.expandonscroll.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -11,7 +11,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.apsoftware.expandonscroll.R;
+import com.barriosnahuel.expandonscroll.R;
 
 public class ParallaxScrollListView extends ListView implements OnScrollListener {
 

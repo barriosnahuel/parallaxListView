@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import com.apsoftware.expandonscroll.view.ParallaxScrollListView;
+import com.barriosnahuel.expandonscroll.view.ParallaxScrollListView;
 import com.gnod.parallaxlistview.R;
 
 public class ParallaxOnListViewActivity extends Activity {

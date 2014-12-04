@@ -1,4 +1,4 @@
-package com.apsoftware.expandonscroll.animation;
+package com.barriosnahuel.expandonscroll.animation;
 
 import android.view.View;
 import android.view.animation.Animation;

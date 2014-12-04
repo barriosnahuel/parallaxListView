@@ -1,9 +1,9 @@
-package com.apsoftware.expandonscroll.model;
+package com.barriosnahuel.expandonscroll.model;
 
 import android.widget.ImageView;
 
-import com.apsoftware.expandonscroll.listener.ExpandOnScrollListener;
-import com.apsoftware.expandonscroll.listener.impl.ExpandOnScrollListenerImpl;
+import com.barriosnahuel.expandonscroll.listener.ExpandOnScrollListener;
+import com.barriosnahuel.expandonscroll.listener.impl.ExpandOnScrollListenerImpl;
 
 /**
  * Created by nbarrios on 30/11/14.

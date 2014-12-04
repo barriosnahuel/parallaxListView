@@ -1,4 +1,4 @@
-package com.apsoftware.expandonscroll;
+package com.barriosnahuel.expandonscroll;
 
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
-import com.apsoftware.expandonscroll.listener.ExpandOnScrollListener;
-import com.apsoftware.expandonscroll.listener.impl.ExpandOnScrollListenerImpl;
-import com.apsoftware.expandonscroll.model.ExpandablePage;
+import com.barriosnahuel.expandonscroll.listener.ExpandOnScrollListener;
+import com.barriosnahuel.expandonscroll.listener.impl.ExpandOnScrollListenerImpl;
+import com.barriosnahuel.expandonscroll.model.ExpandablePage;
 
 /**
  * TODO : Add documentation!!
@@ -40,9 +40,8 @@ public class ExpandOnScrollHandler {
 
     /**
      * Same as {@link #ExpandOnScrollHandler(int, android.view.View, android.support.v4.view.ViewPager,
-     * ExpandOnScrollHandler.ResetMethod)} but
-     * without using a {@link android.support.v4.view.ViewPager}. You will expand a simple view like
-     * an {@link android.widget.ImageView}.
+     * ExpandOnScrollHandler.ResetMethod)} but without using a {@link android.support.v4.view.ViewPager}.
+     * You will expand a simple view like an {@link android.widget.ImageView}.
      */
     public ExpandOnScrollHandler(int paddingTop, View viewToExpand, ResetMethod resetMethod) {
         this(paddingTop, viewToExpand, null, resetMethod);
@@ -69,8 +68,8 @@ public class ExpandOnScrollHandler {
 
     /**
      * Add the specified {@code expandablePage} to this handler, and sets the associated {@link
-     * com.apsoftware.expandonscroll.listener.ExpandOnScrollListener} to this
-     * {@code expandablePage}.
+     * com.barriosnahuel.expandonscroll.listener.ExpandOnScrollListener} to this {@code
+     * expandablePage}.
      *
      * @param expandablePage The page to add.
      */
@@ -150,7 +149,7 @@ public class ExpandOnScrollHandler {
      * Gets the listener for the current page (if we are working with a {@link
      * android.support.v4.view.ViewPager} or the unique listener when working with a single image.
      *
-     * @return The corresponding {@link com.apsoftware.expandonscroll.listener.ExpandOnScrollListener}.
+     * @return The corresponding {@link com.barriosnahuel.expandonscroll.listener.ExpandOnScrollListener}.
      */
     public ExpandOnScrollListener getExpandOnScrollListener() {
         ExpandOnScrollListener expandOnScrollListener = null;

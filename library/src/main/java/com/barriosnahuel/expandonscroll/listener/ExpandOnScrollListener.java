@@ -1,4 +1,4 @@
-package com.apsoftware.expandonscroll.listener;
+package com.barriosnahuel.expandonscroll.listener;
 
 import android.view.MotionEvent;
 

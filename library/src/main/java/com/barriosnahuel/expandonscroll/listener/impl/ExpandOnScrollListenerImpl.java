@@ -1,12 +1,12 @@
-package com.apsoftware.expandonscroll.listener.impl;
+package com.barriosnahuel.expandonscroll.listener.impl;
 
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.apsoftware.expandonscroll.ExpandOnScrollHandler;
-import com.apsoftware.expandonscroll.animation.ResetAnimation;
-import com.apsoftware.expandonscroll.listener.ExpandOnScrollListener;
+import com.barriosnahuel.expandonscroll.ExpandOnScrollHandler;
+import com.barriosnahuel.expandonscroll.animation.ResetAnimation;
+import com.barriosnahuel.expandonscroll.listener.ExpandOnScrollListener;
 
 /**
  * Created by nbarrios on 27/11/14.

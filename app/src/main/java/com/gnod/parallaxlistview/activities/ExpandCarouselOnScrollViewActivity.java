@@ -7,9 +7,9 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.Menu;
 
-import com.apsoftware.expandonscroll.ExpandOnScrollHandler;
-import com.apsoftware.expandonscroll.adapter.AbstractExpandableOnScrollPagerAdapter;
-import com.apsoftware.expandonscroll.view.CustomScrollView;
+import com.barriosnahuel.expandonscroll.ExpandOnScrollHandler;
+import com.barriosnahuel.expandonscroll.adapter.AbstractExpandableOnScrollPagerAdapter;
+import com.barriosnahuel.expandonscroll.view.CustomScrollView;
 import com.gnod.parallaxlistview.R;
 
 /**

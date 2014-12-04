@@ -1,11 +1,11 @@
-package com.apsoftware.expandonscroll.view;
+package com.barriosnahuel.expandonscroll.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
-import com.apsoftware.expandonscroll.ExpandOnScrollHandler;
+import com.barriosnahuel.expandonscroll.ExpandOnScrollHandler;
 
 
 /**

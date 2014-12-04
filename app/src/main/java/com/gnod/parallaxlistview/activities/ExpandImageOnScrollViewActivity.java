@@ -6,9 +6,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageView;
 
-import com.apsoftware.expandonscroll.ExpandOnScrollHandler;
-import com.apsoftware.expandonscroll.model.ExpandablePage;
-import com.apsoftware.expandonscroll.view.CustomScrollView;
+import com.barriosnahuel.expandonscroll.ExpandOnScrollHandler;
+import com.barriosnahuel.expandonscroll.model.ExpandablePage;
+import com.barriosnahuel.expandonscroll.view.CustomScrollView;
 import com.gnod.parallaxlistview.R;
 
 /**
