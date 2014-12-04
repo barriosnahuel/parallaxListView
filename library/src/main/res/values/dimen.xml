@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Default Parallax ImageView Height  -->
+    <!-- Initial ImageView height for expandable views -->
     <dimen name="expandable_initial_height">200dp</dimen>
 </resources>
