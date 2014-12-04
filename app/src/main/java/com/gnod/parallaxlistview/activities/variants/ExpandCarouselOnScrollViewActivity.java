@@ -52,13 +52,13 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
                         resourceUrl = "http://www.solostocks.com/img/bermudas-para-hombres-5235674z1.jpg";
                         break;
                     case 2:
-                        resourceUrl = "http://mla-s2-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20212-MLA7252806896_102014-O.jpg";
+                        resourceUrl = "http://bucket3.clanacion.com.ar/anexos/fotos/95/smartphones-1691995w645.jpg";
                         break;
                     case 3:
-                        resourceUrl = "http://mla-s2-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20237-MLA7252806895_102014-O.jpg";
+                        resourceUrl = "http://carupanero.com/sitioweb/wp-content/uploads/2014/07/Celular-samsung-2.jpg";
                         break;
                     default:
-                        resourceUrl = "http://mla-s2-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20266-MLA7252806932_102014-O.jpg";
+                        resourceUrl = "http://www.tuverde.com/imagenes/2009/10/billetera-baumm-tienda.jpg";
                 }
 
                 return resourceUrl;

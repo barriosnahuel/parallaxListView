@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/expandable_initial_height"
                 android:scaleType="centerCrop"
-                android:src="@drawable/imagen"/>
+                android:src="@drawable/image"/>
 
             <TextView
                 android:layout_width="wrap_content"
