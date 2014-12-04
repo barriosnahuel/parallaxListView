@@ -13,6 +13,9 @@ import android.widget.ListView;
 
 import com.barriosnahuel.expandonscroll.R;
 
+/**
+ * Created by Gnod.
+ */
 public class ParallaxScrollListView extends ListView implements OnScrollListener {
 
     public final static double NO_ZOOM = 1;

@@ -10,6 +10,8 @@ import com.barriosnahuel.expandonscroll.ExpandOnScrollHandler;
 
 /**
  * Created by nbarrios on 27/11/14.
+ *
+ * Most of the code was taken from {@link com.barriosnahuel.expandonscroll.view.ParallaxScrollListView}.
  */
 public class CustomScrollView extends ScrollView {
 

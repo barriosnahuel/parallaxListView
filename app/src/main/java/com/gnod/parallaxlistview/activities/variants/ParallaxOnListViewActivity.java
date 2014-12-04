@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import com.barriosnahuel.expandonscroll.view.ParallaxScrollListView;
 import com.gnod.parallaxlistview.R;
 
+/**
+ * Created by Gnod.
+ */
 public class ParallaxOnListViewActivity extends Activity {
 
     private ParallaxScrollListView mListView;
