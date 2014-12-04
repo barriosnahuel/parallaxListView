@@ -1,11 +1,10 @@
-package com.gnod.parallaxlistview.activities;
+package com.gnod.parallaxlistview.activities.variants;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.Menu;
 
 import com.barriosnahuel.expandonscroll.ExpandOnScrollHandler;
 import com.barriosnahuel.expandonscroll.adapter.AbstractExpandableOnScrollPagerAdapter;
@@ -47,10 +46,10 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
                 String resourceUrl;
                 switch (position) {
                     case 0:
-                        resourceUrl = "http://mla-s1-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20262-MLA7252806894_102014-O.jpg";
+                        resourceUrl = "http://losseguros.com.ar/wp-content/uploads/Poliza-automotor-todo-riesgo-premiun.jpg";
                         break;
                     case 1:
-                        resourceUrl = "http://mla-s2-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20214-MLA7252806898_102014-O.jpg";
+                        resourceUrl = "http://www.solostocks.com/img/bermudas-para-hombres-5235674z1.jpg";
                         break;
                     case 2:
                         resourceUrl = "http://mla-s2-p.mlstatic.com/traje-de-bano-silicon-quiksilver-cybermonday-envio-gratis-20212-MLA7252806896_102014-O.jpg";
@@ -65,12 +64,6 @@ public class ExpandCarouselOnScrollViewActivity extends Activity {
                 return resourceUrl;
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.parallax, menu);
-        return true;
     }
 
 }

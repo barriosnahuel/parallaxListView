@@ -1,9 +1,8 @@
-package com.gnod.parallaxlistview.activities;
+package com.gnod.parallaxlistview.activities.variants;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -44,12 +43,6 @@ public class ParallaxOnListViewActivity extends Activity {
                 }
         );
         mListView.setAdapter(adapter);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.parallax, menu);
-        return true;
     }
 
     @Override

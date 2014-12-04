@@ -1,9 +1,8 @@
-package com.gnod.parallaxlistview.activities;
+package com.gnod.parallaxlistview.activities.variants;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.widget.ImageView;
 
 import com.barriosnahuel.expandonscroll.ExpandOnScrollHandler;
@@ -36,12 +35,6 @@ public class ExpandImageOnScrollViewActivity extends Activity {
         expandOnScrollHandler.addPage(new ExpandablePage(0, imageView));
 
         customScrollView.setExpandOnScrollHandler(expandOnScrollHandler);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.parallax, menu);
-        return true;
     }
 
     @Override

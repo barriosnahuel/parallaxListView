@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="app" type="AndroidRunConfigurationType" factoryName="Android Application">
     <module name="app" />
-    <option name="ACTIVITY_CLASS" value="com.gnod.parallaxlistview.activities.ExpandImageOnScrollViewActivity" />
-    <option name="MODE" value="do_nothing" />
+    <option name="ACTIVITY_CLASS" value="com.gnod.parallaxlistview.activities.variants.ExpandImageOnScrollViewActivity" />
+    <option name="MODE" value="default_activity" />
     <option name="DEPLOY" value="true" />
     <option name="ARTIFACT_NAME" value="" />
     <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
