@@ -11,3 +11,21 @@ The key of the effect is :
 
 request:
           android:minSdkVersion="9"
+
+##How to include it in your project?
+
+First of all you have to download the AAR file, then add the container directory as a repository by adding the following code block inside your `depdendencies` section:
+
+    repositories {
+        flatDir {
+            dirs '../aars'
+        }
+    }
+
+After that, just add the library with all its required libraries inside:
+
+    compile('com.barriosnahuel:expandonscroll:1.0@aar') {
+        compile 'com.github.bumptech.glide:glide:3.4.0'
+    }
+
+That's all!
