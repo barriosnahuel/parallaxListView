@@ -92,7 +92,7 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
     }
 
     private void resetImageToInitialHeight() {
-        Log.v(TAG, "resetImageToInitialHeight...");
+        Log.v(TAG, "==> resetImageToInitialHeight");
 
         if (initialHeight - 1 < viewToExpand.getHeight()) {
             final View viewToAnimate = viewToExpand;
@@ -104,26 +104,7 @@ public class ExpandOnScrollListenerImpl implements ExpandOnScrollListener {
     }
 
     public void onScrollChanged(int l, int t, int oldl, int oldt) {
-//        Log.v(TAG, "onScrollChanged...");
-//        View firstView = (View) imageView.getParent();
-//
-//        if (firstView == null) {
-//            Log.d(TAG, "Error!");
-//            firstView = viewToExpand;
-//        } else {
-////            Log.d(TAG, "imageViewParent id: " + firstView.getId());
-////            Log.d(TAG, "imageView id: " + imageView.getId());
-//        }
-//
-//        // firstView.getTop < getPaddingTop means imageView will be covered by top padding, so we can layout it to make it shorter
-//        if (firstView != null && firstView.getTop() < paddingTop && imageView.getHeight() > initialHeight) {
-//            Log.d(TAG, "This log message never appears... should I delete this method (entirely!)");//  TODO : Delete this method
-//
-//            imageView.getLayoutParams().height = Math.max(imageView.getHeight() - (paddingTop - firstView.getTop()), initialHeight);
-//
-//            // to set the firstView.mTop to 0, maybe use View.setTop() is more easy, but it just support from Android 3.0 (API 11)
-//            firstView.layout(firstView.getLeft(), 0, firstView.getRight(), firstView.getHeight());
-//            imageView.requestLayout();
-//        }
+        Log.v(TAG, "==> onScrollChanged");
+        //  TODO : Delete this method
     }
 }
