@@ -1,6 +1,12 @@
 ParallaxListView
 ================
 
+##Issues
+
+[![Stories ready to be worked on](https://badge.waffle.io/barriosnahuel/parallaxListView.png?label=ready&title=Ready)](https://waffle.io/barriosnahuel/parallaxListView) [![Stories in progress](https://badge.waffle.io/barriosnahuel/parallaxListView.png?label=in progress&title=In Progress)](https://waffle.io/barriosnahuel/parallaxListView)
+
+##Demo
+
 A  ListView demo with a [parallax effect](http://en.wikipedia.org/wiki/Parallax) header like [Path](https://path.com/).
 
 
